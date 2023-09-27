@@ -23,6 +23,11 @@ function Characters() {
         fetchCharacter();
     }, []);
 
+    const handleLogout = () => {
+        localStorage.removeItem("userLoggedIn");
+        window.location.href = "/";
+    };
+
     return (
         <div>
             <h1>Zelda's Characters</h1>
@@ -37,6 +42,9 @@ function Characters() {
             <button>
                 <Link to='/main'>Back to Main</Link>
             </button>
+
+            <button onClick={handleLogout}>Logout</button>
+
         </div>
     );
 };

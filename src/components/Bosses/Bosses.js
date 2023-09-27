@@ -23,6 +23,11 @@ function Bosses() {
         fetchBosses();
     }, []);
 
+    const handleLogout = () => {
+        localStorage.removeItem("userLoggedIn");
+        window.location.href = "/";
+    };
+
     return (
         <div>
             <h1>Main Zelda Bosses</h1>
@@ -36,6 +41,9 @@ function Bosses() {
             <button>
                 <Link to='/main'>Back to Main</Link>
             </button>
+
+            <button onClick={handleLogout}>Logout</button>
+
         </div>
     );
 }

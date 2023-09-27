@@ -23,7 +23,6 @@ const LinkChar = styled.img `
     bottom: 2rem;
     right: 2rem;
     width: 30%;
-
 `
 
 const ContentWrapper = styled.div`
