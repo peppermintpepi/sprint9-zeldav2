@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import { useParams, Link, useNavigate } from 'react-router-dom';
+import triforceBlue from '../../img/triforce-blue.png';
+import charactersShadow from '../../img/characters-shadow.png';
+import { Background, ContentWrapper, TriforceLogo, LinkCharGold, TitleText, CategoryButton,
+    ListContainer, PageText, LogoutButton, BackButton, VideoContainer } from './CharactersInfoStyles';
 
 function CharacterInfo() {
     const { characterId } = useParams();
@@ -73,42 +77,61 @@ function CharacterInfo() {
         }
     }, [characterId, gameName, youtubeApiKey]);
 
+    const handleLogout = () => {
+        localStorage.removeItem("userLoggedIn");
+        window.location.href = "/";
+    };
+
     return (
-        <div>
+        <Background>
+            <ContentWrapper>
+            <TriforceLogo srt={triforceBlue} ></TriforceLogo>
+
+        <LogoutButton onClick={handleLogout}><span><i class="material-icons">exit_to_app</i></span>
+                {' '}LOGOUT</LogoutButton>
             {character ? (
                 <>
-                    <h2>{character?.data?.name}</h2>
-                    <p>Appearances: {gameName}</p>
-                    <p>About the character: {character?.data?.description}</p>
-                    <p>Gender: {character?.data?.gender}</p>
-                    <p>Race: {character?.data?.race}</p>
+                    <TitleText>{character?.data?.name}</TitleText>
+                    <PageText>Appearances: {gameName}</PageText>
+                    <PageText>About the character: {character?.data?.description}</PageText>
+                    <PageText>Gender: {character?.data?.gender}</PageText>
+                    <PageText>Race: {character?.data?.race}</PageText>
 
-                    {videoId && (
-                        <div>
-                            <iframe
-                                width="560"
-                                height="315"
-                                src={`https://www.youtube.com/embed/${videoId}`}
-                                title="YouTube video player"
-                                frameBorder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowFullScreen
-                            ></iframe>
-                        </div>
-                    )}
+                    <VideoContainer>
+                        {videoId && (
+                            <div>
+                                <iframe
+                                    width="560"
+                                    height="315"
+                                    src={`https://www.youtube.com/embed/${videoId}`}
+                                    title="YouTube video player"
+                                    frameBorder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowFullScreen
+                                ></iframe>
+                            </div>
+                        )}
+                    </VideoContainer>
 
-                    <button onClick={handleBackClick}> 
-                        Back
-                    </button>
-
-                    <button> 
-                        <Link to='/main'>Main Menu</Link>
-                    </button>
+                    <BackButton>
+                        <span><i class="material-icons">chevron_left</i></span>
+                        <Link to='/characters'>{' '}BACK</Link>
+                    </BackButton>
+                    
+                    <CategoryButton>
+                        <span><i class="material-icons">home</i></span>
+                        <Link to='/main'>{' '}MAIN MENU</Link>
+                    </CategoryButton>   
                 </>
             ) : (
                 <div>Loading...</div>
             )}
-        </div>
+
+            
+
+            <LinkCharGold src={charactersShadow} ></LinkCharGold>
+            </ContentWrapper>
+        </Background>   
     );
 }
 

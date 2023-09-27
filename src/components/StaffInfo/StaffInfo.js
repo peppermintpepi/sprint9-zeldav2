@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import { useParams, Link } from 'react-router-dom';
+import triforGold from '../../img/triforce-gold.png';
+import staffShadow from '../../img/staff-shadow.png';
+import { Background, ContentWrapper, TriforceLogo, LinkCharGold, TitleText, CategoryButton,
+    ListContainer, PageText, LogoutButton, BackButton, VideoContainer } from './StaffInfoStyles';
 
 // renderitzar la informació de cada treballador
 function StaffInfo() {
@@ -61,8 +65,12 @@ function StaffInfo() {
                 console.error('Error fetching la informació del personatge: ', error);
             });
     }, [staffId]);
-    
 
+    const handleLogout = () => {
+        localStorage.removeItem("userLoggedIn");
+        window.location.href = "/";
+    };
+    
     if (!programer || !gameName) {
         return <div>Loading...</div>;
     }
@@ -70,10 +78,17 @@ function StaffInfo() {
     console.log('Staff object:', programer);
 
     return (
-        <div>
-            <h2>{programer.data.name}</h2>
-            <p>Worked On: {gameName}</p>
+        <Background>
+            <ContentWrapper>
+                <TriforceLogo srt={triforGold} ></TriforceLogo>
 
+            <LogoutButton onClick={handleLogout}><span><i class="material-icons">exit_to_app</i></span>
+                    {' '}LOGOUT</LogoutButton>
+
+            <TitleText>{programer.data.name}</TitleText>
+            <PageText>Worked On: {gameName}</PageText>
+
+            <VideoContainer>
             {videoId && (
                 <div>
                     <iframe
@@ -87,15 +102,21 @@ function StaffInfo() {
                     ></iframe>
                 </div>
             )}
+            </VideoContainer>
 
-            <button>
-                <Link to='/staff'>Back</Link>
-            </button>
+            <BackButton>
+                <span><i class="material-icons">chevron_left</i></span>
+                <Link to='/staff'>{' '}BACK</Link>
+            </BackButton>
+            
+            <CategoryButton>
+                <span><i class="material-icons">home</i></span>
+                <Link to='/main'>{' '}MAIN MENU</Link>
+            </CategoryButton>
 
-            <button> 
-                <Link to='/main'>Main Menu</Link>
-            </button>
-        </div>
+            <LinkCharGold src={staffShadow} ></LinkCharGold>
+            </ContentWrapper>
+        </Background>
     );
 }
 

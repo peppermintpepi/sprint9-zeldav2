@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-
+import triforceGold from '../../img/triforce-gold.png';
+import linkGold from '../../img/link-shadow-gold.png';
+import { Background, ContentWrapper, TriforceLogo, LinkCharGold, TitleText, CategoryButton, ButtonContainer, 
+    ListContainer, PageText, LogoutButton } from "./GamesStyles";
 // generar un llistat de tots els jocs de la saga Zelda
 function Games() {
     const [gamesList, setGamesList] = useState([]);
@@ -29,23 +32,33 @@ function Games() {
     };
 
     return (
-        <div>
-            <h1>Zelda's Games</h1>
-            <ul>
-                {gamesList.map((game) => (
-                    <li key={game.id}>
-                        <Link to={`/games/${game.id}`}>{game.name}</Link>
-                    </li>
-                ))}
-            </ul>
+        <Background>
+            <ContentWrapper>
+                <TriforceLogo src={triforceGold} ></TriforceLogo>
+                    <LogoutButton onClick={handleLogout}><span><i class="material-icons">exit_to_app</i></span>
+                    {' '}LOGOUT</LogoutButton>
+                    
+                <TitleText>Zelda's Games</TitleText>
 
-            <button>
-                <Link to='/main'>Back to Main</Link>
-            </button>
+                <ul>
+                    <ListContainer>
+                        {gamesList.map((game) => (
+                            <PageText key={game.id}>
+                                <Link to={`/games/${game.id}`}>{game.name}</Link>
+                            </PageText>
+                        ))}
+                    </ListContainer>
+                </ul>
 
-            <button onClick={handleLogout}>Logout</button>
+                <CategoryButton>
+                    <span><i class="material-icons">home</i></span>
+                    <Link to='/main'>{' '}MAIN MENU</Link>
+                </CategoryButton>
 
-        </div>
+
+                <LinkCharGold src={linkGold} ></LinkCharGold>
+            </ContentWrapper>
+        </Background>
     );
 };
 

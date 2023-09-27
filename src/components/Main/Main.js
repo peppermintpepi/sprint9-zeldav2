@@ -20,7 +20,8 @@ function Welcome() {
 
                 <TriforceLogo src={triforceGold} ></TriforceLogo>
                 <TitleText>Welcome to Zelda's main database</TitleText>
-                <LogoutButton onClick={handleLogout}>LOGOUT</LogoutButton>
+                <LogoutButton onClick={handleLogout}><span><i class="material-icons">exit_to_app</i></span>
+                    {' '}LOGOUT</LogoutButton>
 
                 <PageTextContainer>
                     <PageText>

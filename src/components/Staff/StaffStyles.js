@@ -4,10 +4,10 @@ import backgroundImg from '../../img/main-bg.png'
 const Background = styled.div`
     background-image: url(${backgroundImg});
     background-color: #007935;
-    background-size: contain; 
+    background-size: cover; 
     background-repeat: no-repeat;
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     position: relative;
 `
 
@@ -28,16 +28,15 @@ const LinkCharGold = styled.img `
     position: fixed;
     bottom: 2rem;
     right: 2rem;
-    width: 30%;
+    width: 25%;
 `
 
 const TitleText = styled.h1`
     position: fixed;
-    right: 4rem;
     top: 4rem;
     margin-left: 30%;
     color: #6e571d;
-    text-align: right;
+    text-align: center;
     font-family: 'Noto Serif NP Hmong', serif;
     font-size: 2rem;
     letter-spacing: 1px;
@@ -53,63 +52,29 @@ const PageText = styled.p`
     font-family: 'Inclusive Sans', sans-serif;
     color: #f5f4e2;
     font-size: 1rem; 
-    margin-top: 10rem;
     margin-left: auto;
     margin-right: auto;
     max-width: 60%; 
     padding: 0 20%; 
 
-    @media screen and (max-width: 640px) {
-        font-size: 0.75rem; 
-        max-width: 80%; 
-`
-
-const PageTextContainer = styled.div `
-    position: relative;
-    z-index: 1;
-`
-
-const PageCategory = styled.p`
-    font-family: 'Inclusive Sans', sans-serif;
-    color: #f5f4e2;
-    font-size: 1rem; 
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 60%; 
-    padding: 0 20%; 
-    position: relative;
-    z-index: 1;
-    
     @media screen and (max-width: 640px) {
         font-size: 0.75rem; 
         max-width: 80%; 
 `
 
 const ListContainer = styled.ul `
-    margin-top: 5% !important;
+    margin-top: 10rem !important;
     
 `
 
 const CategoryButton = styled.button `
-    font-family: 'Noto Serif NP Hmong', serif;
-    font-size: 1rem;
-    background-color: #f5f4e2;
+    background-color: Transparent;
+    border: none;
+    cursor:pointer;
     color: #6e571d;
-    padding: 0.75rem 2rem;
-    border: none; 
-    border-radius: 5px;
-    cursor: pointer;
-    width: 200px;
-
-    &:hover {
-        background-color: #6e571d; 
-        color: #f5f4e2; 
-        transform: translateX(5px);
-    }
-
-    @media screen and (max-width: 640px) {
-        font-size: 0.75rem;
-    }
+    position: fixed;
+    top: 5rem;
+    right: 4rem;
 `
 
 const ButtonContainer = styled.div `
@@ -133,4 +98,4 @@ const LogoutButton = styled.button `
 `
 
 export { Background, ContentWrapper, TriforceLogo, LinkCharGold, TitleText, CategoryButton, ButtonContainer, 
-    ListContainer, PageText, PageCategory, PageTextContainer, LogoutButton };
+    ListContainer, PageText, LogoutButton };

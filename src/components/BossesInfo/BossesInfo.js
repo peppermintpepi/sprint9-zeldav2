@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import { useParams, useNavigate, Link } from 'react-router-dom';
+import triforceGold from '../../img/triforce-gold.png';
+import bossesShadow from '../../img/bosses-shadow.png';
+import { Background, ContentWrapper, TriforceLogo, LinkCharGold, TitleText, CategoryButton,
+    ListContainer, PageText, LogoutButton, BackButton, VideoContainer } from './BossesInfoStyles';
 
 function BossesInfo() {
     const { bossId } = useParams();
@@ -103,58 +107,83 @@ function BossesInfo() {
         }
     }, [gameNames]);
 
+    const handleLogout = () => {
+        localStorage.removeItem("userLoggedIn");
+        window.location.href = "/";
+    };
+
     return (
-        <div>
+        <Background>
+            <ContentWrapper>
+                <TriforceLogo src={triforceGold} ></TriforceLogo>
+
+                <LogoutButton onClick={handleLogout}><span><i class="material-icons">exit_to_app</i></span>
+                    {' '}LOGOUT</LogoutButton>
+
             {boss ? (
                 <>
-                    <h2>{boss?.data?.name}</h2>
-                    <p>Appearances:</p>
+                    <TitleText>{boss?.data?.name}</TitleText>
+                    
+                    <VideoContainer>
+                        {videoId && (
+                            <div>
+                                <iframe
+                                    width="560"
+                                    height="315"
+                                    src={`https://www.youtube.com/embed/${videoId}`}
+                                    title="YouTube video player"
+                                    frameBorder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowFullScreen
+                                ></iframe>
+                            </div>
+                        )}
+                    </VideoContainer>
+
+                    <PageText>Appearances:</PageText>
                         <ul>
-                            {gameNames.map((gameName, index) => (
-                                <li key={index}>{gameName}</li>
-                            ))}
+                            <ListContainer>
+                                {gameNames.map((gameName, index) => (
+                                    <li key={index}>{gameName}</li>
+
+                                ))}
+                            </ListContainer>
                         </ul>
-                    <p>About the boss: {boss?.data?.description}</p>
-                    <p>
+                    <PageText>About the boss: {boss?.data?.description}</PageText>
+                    <PageText>
                         Dungeons:
                         {dungeons && dungeons.length > 0 ? (
                             <ul>
-                                {dungeons.map((dungeon, index) => (
-                                    <li key={index}>{dungeon}</li>
-                                ))}
+                                <ListContainer>
+                                    {dungeons.map((dungeon, index) => (
+                                        <li key={index}>{dungeon}</li>
+                                    ))}
+                                </ListContainer>
                             </ul>
                         ) : (
                             'No dungeons available'
                         )}
-                    </p>
+                    </PageText>
 
+                <BackButton>
+                    <span><i class="material-icons">chevron_left</i></span>
+                    <Link to='/bosses'>{' '}BACK</Link>
+                </BackButton>
+                
+                <CategoryButton>
+                    <span><i class="material-icons">home</i></span>
+                    <Link to='/main'>{' '}MAIN MENU</Link>
+                </CategoryButton>
 
-                    {videoId && (
-                        <div>
-                            <iframe
-                                width="560"
-                                height="315"
-                                src={`https://www.youtube.com/embed/${videoId}`}
-                                title="YouTube video player"
-                                frameBorder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowFullScreen
-                            ></iframe>
-                        </div>
-                    )}
-
-                    <button onClick={handleBackClick}> 
-                        Back
-                    </button>
-
-                    <button> 
-                        <Link to='/main'>Main Menu</Link>
-                    </button>
                 </>
             ) : (
                 <div>Loading...</div>
-            )}
-        </div>
+                )}
+
+                <LinkCharGold src={bossesShadow} ></LinkCharGold>
+
+                </ContentWrapper>
+        </Background>
     );
 }
 

@@ -16,6 +16,10 @@ const TriforceLogo = styled.img`
     left: 50%;
     transform: translateX(-50%);
     width: 25%;
+
+    @media screen and (min-width: 1450px) {
+        width: 20%;
+    }
 `
 
 const LinkChar = styled.img `
