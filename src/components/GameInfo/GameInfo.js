@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import { useParams, Link } from 'react-router-dom';
+import triforceBlue from '../../img/triforce-blue.png';
+import linkShadow from '../../img/link-games.png';
+import { Background, ContentWrapper, TriforceLogo, LinkCharGold, TitleText, CategoryButton, 
+    ListContainer, PageText, LogoutButton, BackButton, VideoContainer } from './GameInfoStyles';
 
 // renderitzar les dades del joc triat
 function GameInfo() {
@@ -46,40 +50,58 @@ function GameInfo() {
             });
     }, [gameId]);
 
+    const handleLogout = () => {
+        localStorage.removeItem("userLoggedIn");
+        window.location.href = "/";
+    };
+
     if (!game) {
         return <div>Loading...</div>;
     }
 
     return (
-        <div>
-            <h2>{game.data.name}</h2>
-            <p>{game.data.description}</p>
-            <p>Developer: {game.data.developer}</p>
-            <p>Publisher: {game.data.publisher}</p>
-            <p>Released Date: {game.data.released_date}</p>
+        <Background>
+            <ContentWrapper>
+                <TriforceLogo src={triforceBlue} ></TriforceLogo>
 
-            {videoId && (
-                <div>
-                    <iframe
-                        width="560"
-                        height="315"
-                        src={`https://www.youtube.com/embed/${videoId}`}
-                        title="YouTube video player"
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
+                <LogoutButton onClick={handleLogout}><span><i class="material-icons">exit_to_app</i></span>
+                    {' '}LOGOUT</LogoutButton>
+
+                <ListContainer>
+                    <TitleText>{game.data.name}</TitleText>
+                    <PageText>{game.data.description}</PageText>
+                    <PageText>Developer: {game.data.developer}</PageText>
+                    <PageText>Publisher: {game.data.publisher}</PageText>
+                    <PageText>Released Date: {game.data.released_date}</PageText>
+                </ListContainer>   
+
+                <VideoContainer>
+                    {videoId && (
+                        <iframe
+                            width="560"
+                            height="315"
+                            src={`https://www.youtube.com/embed/${videoId}`}
+                            title="YouTube video player"
+                            frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
                     ></iframe>
-                </div>
-            )}
+                    )}
+                </VideoContainer> 
 
-            <button>
-                <Link to='/games'>Back</Link>
-            </button>
+            <BackButton>
+                <span><i class="material-icons">chevron_left</i></span>
+                <Link to='/games'>{' '}BACK</Link>
+            </BackButton>
             
-            <button> 
-                <Link to='/main'>Main Menu</Link>
-            </button>
-        </div>
+            <CategoryButton>
+                <span><i class="material-icons">home</i></span>
+                <Link to='/main'>{' '}MAIN MENU</Link>
+            </CategoryButton>
+
+            <LinkCharGold src={linkShadow} ></LinkCharGold>
+            </ContentWrapper>
+        </Background>
     );
 }
 

@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import triforceGold from '../../img/triforce-gold.png';
+import bossShadow from '../../img/boss-shadow.png';
+import { Background, ContentWrapper, TriforceLogo, LinkCharGold, TitleText, CategoryButton, ButtonContainer, 
+    ListContainer, PageText, LogoutButton } from './BossesStyles';
 
 // Genera un llistat de tots els monstres finals de la saga Zelda
 function Bosses() {
@@ -23,20 +27,35 @@ function Bosses() {
         fetchBosses();
     }, []);
 
+    const handleLogout = () => {
+        localStorage.removeItem("userLoggedIn");
+        window.location.href = "/";
+    };
+
     return (
-        <div>
-            <h1>Main Zelda Bosses</h1>
-            <ul>
+        <Background>
+            <ContentWrapper>
+                <TriforceLogo src={triforceGold} ></TriforceLogo>
+            <LogoutButton onClick={handleLogout}><span><i class="material-icons">exit_to_app</i></span>
+                    {' '}LOGOUT</LogoutButton>
+            <TitleText>Main Zelda Bosses</TitleText>
+
+            <ListContainer>
                 {bossList.map((boss) => (
-                    <li key={boss.id}>
+                    <PageText key={boss.id}>
                         <Link to={`/bosses/${boss.id}`}>{boss.name}</Link>
-                    </li>
+                    </PageText>
                 ))}
-            </ul>
-            <button>
-                <Link to='/main'>Back to Main</Link>
-            </button>
-        </div>
+            </ListContainer>
+
+            <CategoryButton>
+                <span><i class="material-icons">home</i></span>
+                <Link to='/main'>{' '}MAIN MENU</Link>
+            </CategoryButton>
+
+                    <LinkCharGold src={bossShadow} ></LinkCharGold>
+            </ContentWrapper>
+        </Background>
     );
 }
 

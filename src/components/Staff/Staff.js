@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import triforceGold from '../../img/triforce-gold.png';
+import linkStaff from '../../img/link-shadow-gold2.png';
+import { Background, ContentWrapper, TriforceLogo, LinkCharGold, TitleText, CategoryButton, ButtonContainer, 
+    ListContainer, PageText, LogoutButton } from './StaffStyles';
 
 // generar un llistat amb els principals treballadors de la saga
 function Staff() {
@@ -23,21 +27,37 @@ function Staff() {
         fetchStaff();
     }, []);
 
+    const handleLogout = () => {
+        localStorage.removeItem("userLoggedIn");
+        window.location.href = "/";
+    };
+
     return (
-        <div>
-            <h1>Zelda's main Staff</h1>
+        <Background>
+            <ContentWrapper>
+                <TriforceLogo src={triforceGold} ></TriforceLogo>
+
+            <LogoutButton onClick={handleLogout}><span><i class="material-icons">exit_to_app</i></span>
+                    {' '}LOGOUT</LogoutButton>
+            <TitleText>Zelda's main Staff</TitleText>
             <ul>
+                <ListContainer>
                 {staffList.map((staff) => (
-                    <li key={staff.id}>
-                        <Link to={`/staff/${staff.id}`}>{staff.name}</Link>
-                    </li>
+                    <PageText key={staff.id}>
+                            <Link to={`/staff/${staff.id}`}>{staff.name}</Link>
+                    </PageText>
                 ))}
+                </ListContainer>
             </ul>
 
-            <button>
-                <Link to='/main'>Back to Main</Link>
-            </button>
-        </div>
+            <CategoryButton>
+                <span><i class="material-icons">home</i></span>
+                <Link to='/main'>{' '}MAIN MENU</Link>
+            </CategoryButton>
+
+                    <LinkCharGold src={linkStaff} ></LinkCharGold>
+            </ContentWrapper>
+        </Background>
     );
 };
 

@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import triforceGold from '../../img/triforce-gold.png';
+import zeldaShadow from '../../img/zelda-shadow.png'
+import { Background, ContentWrapper, TriforceLogo, LinkCharGold, TitleText, CategoryButton, ButtonContainer, 
+    ListContainer, PageText, LogoutButton } from './CharacterStyles';
 
 // generar un llistat dels principals personatges de la saga
 function Characters() {
@@ -23,21 +27,39 @@ function Characters() {
         fetchCharacter();
     }, []);
 
-    return (
-        <div>
-            <h1>Zelda's Characters</h1>
-            <ul>
-                {characterList.map((character) => (
-                    <li key={character.id}>
-                        <Link to={`/characters/${character.id}`}>{character.name}</Link>
-                    </li>
-                ))}
-            </ul>
+    const handleLogout = () => {
+        localStorage.removeItem("userLoggedIn");
+        window.location.href = "/";
+    };
 
-            <button>
-                <Link to='/main'>Back to Main</Link>
-            </button>
-        </div>
+    return (
+        <Background>
+            <ContentWrapper>
+                <TriforceLogo src={triforceGold} ></TriforceLogo>
+                
+                <LogoutButton onClick={handleLogout}><span><i class="material-icons">exit_to_app</i></span>
+                    {' '}LOGOUT</LogoutButton>
+
+                    <CategoryButton>
+                        <span><i class="material-icons">home</i></span>
+                        <Link to='/main'>{' '}MAIN MENU</Link>
+                    </CategoryButton>
+
+                    <TitleText>Zelda's Characters</TitleText>
+                    <ul>
+                        <ListContainer>
+                            {characterList.map((character) => (
+                                <PageText key={character.id}>
+                                    <Link to={`/characters/${character.id}`}>{character.name}</Link>
+                                </PageText>
+                            ))}
+                        </ListContainer>
+                    </ul>
+
+
+                    <LinkCharGold src={zeldaShadow} ></LinkCharGold>
+            </ContentWrapper>
+        </Background>
     );
 };
 

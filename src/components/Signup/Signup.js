@@ -1,4 +1,8 @@
 import React, { useState } from 'react';
+import triforce from '../../img/triforce-blue.png';
+import linkShadow from '../../img/link-shadow.png';
+import { Background, ContentWrapper, TriforceLogo, LinkChar, TitleText, MainText, Label, 
+  LoginButton, SignupContainer, IntupDesign, ButtonContainer } from "./SignupStyles";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -49,54 +53,67 @@ const Signup = () => {
   };
 
   return (
-    <div>
-      <h2>Sign Up</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Username:</label>
-          <input
-            type="text"
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Password:</label>
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Confirm Password:</label>
-          <input
-            type="password"
-            name="confirmPassword"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-            required
-          />
-          {errorMessages.passwordMatch && <p>{errorMessages.passwordMatch}</p>}
-        </div>
-        <div>
-          <label>Email:</label>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-          {errorMessages.invalidEmail && <p>{errorMessages.invalidEmail}</p>}
-        </div>
-        <button type="submit">Sign Up</button>
-      </form>
-    </div>
+    <Background>
+      <ContentWrapper>
+        <TriforceLogo src={triforce}></TriforceLogo>
+        <TitleText>Create Account</TitleText>
+
+        <MainText>
+          Enter the information below to register.
+        </MainText>
+        
+        <form onSubmit={handleSubmit}>
+          <SignupContainer>
+            <Label>Username:</Label>
+            <IntupDesign
+              type="text"
+              name="username"
+              value={formData.username}
+              onChange={handleChange}
+              required
+            />
+          </SignupContainer>
+          <SignupContainer>
+            <Label>Password:</Label>
+            <IntupDesign
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+          </SignupContainer>
+          <SignupContainer>
+            <Label>Confirm Password:</Label>
+            <IntupDesign
+              type="password"
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              required
+            />
+            {errorMessages.passwordMatch && <p>{errorMessages.passwordMatch}</p>}
+          </SignupContainer>
+          <SignupContainer>
+            <Label>Email:</Label>
+            <IntupDesign
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+            {errorMessages.invalidEmail && <p>{errorMessages.invalidEmail}</p>}
+          </SignupContainer>
+
+          <ButtonContainer>
+            <LoginButton type="submit">Sign Up</LoginButton>
+          </ButtonContainer>
+
+        </form>
+        <LinkChar src={linkShadow}></LinkChar>
+      </ContentWrapper>
+    </Background>
   );
 };
 
